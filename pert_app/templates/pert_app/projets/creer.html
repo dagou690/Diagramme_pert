@@ -1,0 +1,54 @@
+{% extends 'pert_app/base.html' %}
+
+{% block title %}Créer un projet{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <a href="{% url 'projets:index' %}" class="text-indigo-600 hover:text-indigo-800">
+        <i class="fas fa-arrow-left mr-2"></i>Retour aux projets
+    </a>
+</div>
+
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-lg p-8">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">
+            <i class="fas fa-plus-circle text-indigo-600 mr-2"></i>Nouveau Projet
+        </h1>
+
+        <form action="{% url 'projets:creer' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="mb-5">
+                <label for="id_nom" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Nom du projet <span class="text-red-500">*</span>
+                </label>
+                {{ form.nom }}
+                {% if form.nom.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.nom.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="mb-5">
+                <label for="id_description" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Description
+                </label>
+                {{ form.description }}
+            </div>
+
+            <div class="mb-6">
+                <label for="id_t0" class="block text-sm font-semibold text-gray-700 mb-2">
+                    Jour de début (T₀) <span class="text-red-500">*</span>
+                </label>
+                {{ form.t0 }}
+                {% if form.t0.errors %}
+                    <p class="text-red-500 text-sm mt-1">{{ form.t0.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <button type="submit" class="w-full bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 font-medium">
+                <i class="fas fa-save mr-2"></i>Créer le projet
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}
