@@ -48,15 +48,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'diagramme_pert.wsgi.application'
 
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'diagramme_pert',       # nom de ta base de données
-        'USER': 'postgres',              # ton utilisateur PostgreSQL
-        'PASSWORD': 'root',  # ton mot de passe
-        'HOST': 'localhost',             # ou l'IP du serveur
-        'PORT': '5432',                  # port par défaut PostgreSQL
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=False,
+    )
 }
 
 LANGUAGE_CODE = 'fr-fr'
