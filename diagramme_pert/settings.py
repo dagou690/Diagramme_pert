@@ -1,12 +1,19 @@
 from pathlib import Path
 import os
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-changez-cette-cle-en-production'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-changez-cette-cle-en-production')
 
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://diagrammepert-production.up.railway.app',
+    'https://*.railway.app',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -47,8 +54,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'diagramme_pert.wsgi.application'
-
-import dj_database_url
 
 DATABASES = {
     'default': dj_database_url.config(
